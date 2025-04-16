@@ -1,15 +1,19 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Drawer } from 'expo-router/drawer';
-import { WeatherProvider } from '@/context/WeatherContext';
-import { DrawerContent } from '@/components/DrawerContent';
-import './global.css';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import "react-native-reanimated";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Drawer } from "expo-router/drawer";
+import { WeatherProvider } from "@/context/WeatherContext";
+import { DrawerContent } from "@/components/DrawerContent";
+import "./global.css";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   return (
@@ -18,12 +22,21 @@ export default function RootLayout() {
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Drawer
             drawerContent={(props) => <DrawerContent {...props} />}
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: "transparent", 
+              },
+              headerShadowVisible: false, 
+              drawerStyle: {
+                backgroundColor: "#0654A3",
+              },
+            }}
           >
             <Drawer.Screen
               name="index"
               options={{
-                drawerLabel: 'Home',
-                title: 'Overview',
+                drawerLabel: "Home",
+                title: "",
               }}
             />
           </Drawer>

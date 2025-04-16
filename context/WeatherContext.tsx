@@ -1,8 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { WeatherData, Location, LOCATIONS } from '../types/weather';
-import { getWeatherData } from '../services/weatherService';
-import Geolocation from 'react-native-geolocation-service';
-import { PermissionsAndroid, Platform } from 'react-native';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { WeatherData, Location, LOCATIONS } from "../types/weather";
+import { getWeatherData } from "../services/weatherService";
+import * as ExpoLocation from "expo-location";
 
 interface WeatherContextType {
   weatherData: WeatherData | null;
@@ -16,54 +15,40 @@ interface WeatherContextType {
 
 const WeatherContext = createContext<WeatherContextType | undefined>(undefined);
 
-export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
-  const [selectedLocation, setSelectedLocation] = useState<Location>(LOCATIONS[0]);
+  const [selectedLocation, setSelectedLocation] = useState<Location>(
+    LOCATIONS[0]
+  );
+  const [locations, setLocations] = useState<Location[]>(LOCATIONS);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const requestLocationPermission = async () => {
-    if (Platform.OS === 'ios') {
-      const auth = await Geolocation.requestAuthorization('whenInUse');
-      return auth === 'granted';
-    }
-
-    if (Platform.OS === 'android') {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Location Permission',
-          message: 'Weather app needs access to your location',
-          buttonNeutral: 'Ask Me Later',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK',
-        },
-      );
-      return granted === PermissionsAndroid.RESULTS.GRANTED;
-    }
-
-    return false;
-  };
+  useEffect(() => {}, []);
 
   const getCurrentLocation = async (): Promise<Location | null> => {
     try {
-      const hasPermission = await requestLocationPermission();
-      if (!hasPermission) return null;
+      let { status } = await ExpoLocation.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        return null;
+      }
 
-      return new Promise((resolve, reject) => {
-        Geolocation.getCurrentPosition(
-          (position) => {
-            resolve({
-              name: 'Current Location',
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            });
-          },
-          (error) => reject(error),
-          { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
-        );
+      const location = await ExpoLocation.getCurrentPositionAsync({});
+      
+      const locationName = await ExpoLocation.reverseGeocodeAsync({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
       });
+
+      return {
+        name: locationName[0].city || locationName[0].region || locationName[0].country,
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      }
     } catch (error) {
+      console.log("err", error);
       return null;
     }
   };
@@ -75,7 +60,9 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const data = await getWeatherData(location);
       setWeatherData(data);
     } catch (err) {
-      setError('Failed to fetch weather data. Please check your internet connection.');
+      setError(
+        "Failed to fetch weather data. Please check your internet connection."
+      );
     } finally {
       setLoading(false);
     }
@@ -86,6 +73,7 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({ child
       const currentLocation = await getCurrentLocation();
       if (currentLocation) {
         setSelectedLocation(currentLocation);
+        setLocations([currentLocation, ...locations]);
         await fetchWeatherData(currentLocation);
       } else {
         await fetchWeatherData(selectedLocation);
@@ -104,7 +92,7 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({ child
       value={{
         weatherData,
         selectedLocation,
-        locations: LOCATIONS,
+        locations,
         loading,
         error,
         setSelectedLocation: async (location: Location) => {
@@ -122,7 +110,7 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({ child
 export const useWeather = () => {
   const context = useContext(WeatherContext);
   if (context === undefined) {
-    throw new Error('useWeather must be used within a WeatherProvider');
+    throw new Error("useWeather must be used within a WeatherProvider");
   }
   return context;
-}; 
+};
