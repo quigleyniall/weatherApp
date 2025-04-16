@@ -37,34 +37,11 @@ export default function HomeScreen() {
 
   return (
     <ScrollView
-      style={styles.container}
+      style={{$$css: true, _: 'bg-grey-100'}}
       refreshControl={
         <RefreshControl refreshing={loading} onRefresh={refreshWeather} />
       }
     >
-      <View style={styles.locationSelector}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {locations.map((location) => (
-            <TouchableOpacity
-              key={location.name}
-              style={[
-                styles.locationButton,
-                selectedLocation.name === location.name && styles.selectedLocation,
-              ]}
-              onPress={() => setSelectedLocation(location)}
-            >
-              <Text
-                style={[
-                  styles.locationText,
-                  selectedLocation.name === location.name && styles.selectedLocationText,
-                ]}
-              >
-                {location.name}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-      </View>
 
       {weatherData && (
         <View style={styles.weatherContainer}>
@@ -133,6 +110,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    
     flex: 1,
     backgroundColor: '#F5F5F5',
   },

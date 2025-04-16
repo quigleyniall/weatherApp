@@ -5,36 +5,30 @@ import 'react-native-reanimated';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
 import { WeatherProvider } from '@/context/WeatherContext';
+import { DrawerContent } from '@/components/DrawerContent';
+import './global.css';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-
-
   return (
     <ThemeProvider value={DefaultTheme}>
       <WeatherProvider>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Drawer>
-          <Drawer.Screen
-            name="index" // This is the name of the page and must match the url from root
-            options={{
-              drawerLabel: 'Home',
-              title: 'overview',
-            }}
-          />
-             <Drawer.Screen
-            name="weather/[location]" // This is the name of the page and must match the url from root
-            options={{
-              drawerLabel: 'Tokyo',
-              title: 'Tokyo',
-            }}
-          />
-        
-        </Drawer>
-        <StatusBar style="auto" />
-      </GestureHandlerRootView>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Drawer
+            drawerContent={(props) => <DrawerContent {...props} />}
+          >
+            <Drawer.Screen
+              name="index"
+              options={{
+                drawerLabel: 'Home',
+                title: 'Overview',
+              }}
+            />
+          </Drawer>
+          <StatusBar style="auto" />
+        </GestureHandlerRootView>
       </WeatherProvider>
     </ThemeProvider>
   );
