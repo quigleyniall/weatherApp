@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 interface Props {
   icon: string;
@@ -18,7 +18,7 @@ const WeatherDetails: React.FC<Props> = ({
   subText,
 }) => (
   <View style={styles.item}>
-    <Icon name={icon} size={size} color={iconColor} />
+    <FontAwesome5 name={icon} size={size} color={iconColor} />
     <Text style={styles.text}>{text}</Text>
     <Text style={styles.subText}>{subText}</Text>
   </View>

@@ -10,14 +10,14 @@ interface Props {
 const WeatherDetailContainer:React.FC<Props> = ({ weatherData }) => {
   const list = [
     {
-      icon: "water-percent",
+      icon: "tint",
       iconColor: "#fff",
       text: `${weatherData.current.relative_humidity_2m}%`,
       size: 40,
       subText: "Humidity",
     },
     {
-      icon: "weather-windy",
+      icon: "wind",
       iconColor: "#fff",
       text: `${Math.round(weatherData.current.wind_speed_10m)} km/h`,
       size: 40,
