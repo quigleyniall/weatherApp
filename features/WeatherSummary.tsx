@@ -6,7 +6,12 @@ import React from "react";
 import { WeatherCodes } from "@/utils/WeatherCodes";
 import { Location, WeatherData } from "@/types/weather";
 
-const WeatherSummary = ({ weatherData, selectedLocation }: { weatherData: WeatherData, selectedLocation: Location }  ) => {
+interface Props {
+  weatherData: WeatherData;
+  selectedLocation: Location;
+}
+
+const WeatherSummary:React.FC<Props> = ({ weatherData, selectedLocation }) => {
   const today = new Date();
   const day = today.toLocaleDateString('en-US', { weekday: 'long' });
   const date = today.toLocaleDateString('en-uk', { day: 'numeric', month: 'long',  });

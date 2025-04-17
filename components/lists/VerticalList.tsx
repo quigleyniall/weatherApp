@@ -1,12 +1,11 @@
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 
-const VerticalList = ({
-  title,
-  children,
-}: {
+interface Props {
   title?: string;
   children: React.ReactNode;
-}) => {
+}
+
+const VerticalList: React.FC<Props> = ({ title, children }) => {
   return (
     <View style={styles.container}>
       {title && <Text style={styles.title}>{title}</Text>}
@@ -26,6 +25,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     color: "#fff",
-    fontFamily: 'Inter-Regular',
+    fontFamily: "Inter-Regular",
   },
 });

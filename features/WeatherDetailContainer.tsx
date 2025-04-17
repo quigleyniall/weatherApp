@@ -3,7 +3,11 @@ import WeatherDetails from "@/components/WeatherDetails";
 import React from "react";
 import { WeatherData } from "@/types/weather";
 
-const WeatherDetailContainer = ({ weatherData }: { weatherData: WeatherData }) => {
+interface Props {
+  weatherData: WeatherData;
+}
+
+const WeatherDetailContainer:React.FC<Props> = ({ weatherData }) => {
   const list = [
     {
       icon: "water-percent",

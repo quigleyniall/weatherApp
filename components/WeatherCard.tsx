@@ -1,21 +1,23 @@
 import { View, Text, StyleSheet } from "react-native";
 import { WeatherIcon } from "./icons/WeatherIcon";
 
-const WeatherCard = ({ list, index, date }: { list: any, index: number, date: string }) => {
-  const formatDate = (date: string) => {
-    const dateObj = new Date(date);
-    let hours = dateObj.getHours();
-    return `${hours}:00`;
-  };
+interface Props {
+  temperature: number;
+  weatherCode: number;
+  formattedTime: string;
+}
 
+const WeatherCard: React.FC<Props> = ({
+  temperature,
+  weatherCode,
+  formattedTime,
+}) => {
   return (
     <View style={styles.item}>
-      <Text style={styles.temp}>
-        {Math.round(list.temperature_2m[index])}°
-      </Text>
-      <WeatherIcon code={list.weather_code[index]} size={40} />
+      <Text style={styles.temp}>{temperature}°</Text>
+      <WeatherIcon code={weatherCode} size={32} />
 
-      <Text style={styles.time}>{formatDate(date)}</Text>
+      <Text style={styles.time}>{formattedTime}</Text>
     </View>
   );
 };
@@ -27,21 +29,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginRight: 15,
     backgroundColor: "transparent",
-    borderWidth: .4,
+    borderWidth: 1,
     borderColor: "#ccc",
     padding: 10,
     borderRadius: 32,
     width: 80,
   },
- 
+
   temp: {
     fontSize: 18,
     color: "#fff",
     marginBottom: 3,
+    fontFamily: "Inter-Regular",
   },
   time: {
     fontSize: 12,
     color: "#ccc",
     marginTop: 5,
+    fontFamily: "Inter-Regular",
   },
 });

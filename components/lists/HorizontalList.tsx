@@ -1,13 +1,11 @@
-import { WeatherCodes } from "@/utils/WeatherCodes";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
 
-const HorizontalList = ({
-  title,
-  children,
-}: {
+interface Props {
   title?: string;
   children: React.ReactNode;
-}) => {
+}
+
+const HorizontalList: React.FC<Props> = ({ title, children }) => {
   return (
     <View style={styles.container}>
       {title && <Text style={styles.title}>{title}</Text>}
@@ -28,6 +26,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     color: "#fff",
-    fontFamily: 'Inter-Regular',
+    fontFamily: "Inter-Regular",
   },
 });

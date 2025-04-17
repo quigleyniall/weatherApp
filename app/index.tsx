@@ -53,8 +53,8 @@ export default function HomeScreen() {
           </LinearGradient>
           <View style={styles.weatherContainer}>
             <HourlyForcast
-              list={weatherData.hourly}
-              title={WeatherCodes[weatherData.current.weather_code].split(":")[0]}
+              weatherData={weatherData}
+              title={WeatherCodes[weatherData.current.weather_code as keyof typeof WeatherCodes].split(":")[0]}
             />
             <DailyForecast weatherData={weatherData} />
           </View>

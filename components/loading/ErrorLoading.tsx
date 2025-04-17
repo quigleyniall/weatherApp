@@ -2,8 +2,13 @@ import { TouchableOpacity } from "react-native";
 
 import { View, Text, StyleSheet } from "react-native";
 
-const ErrorLoading = ({ error, refreshWeather }: { error: string, refreshWeather: () => void }) => (
-    <View style={styles.errorContainer}>
+interface Props {
+  error: string;
+  refreshWeather: () => void;
+}
+
+const ErrorLoading: React.FC<Props> = ({ error, refreshWeather }) => (
+  <View style={styles.errorContainer}>
     <Text style={styles.errorText}>{error}</Text>
     <TouchableOpacity style={styles.retryButton} onPress={refreshWeather}>
       <Text style={styles.retryButtonText}>Retry</Text>
