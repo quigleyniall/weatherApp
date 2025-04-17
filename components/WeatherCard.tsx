@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import { WeatherIcon } from "./WeatherIcon";
+import { WeatherIcon } from "./icons/WeatherIcon";
 
 const WeatherCard = ({ list, index, date }: { list: any, index: number, date: string }) => {
   const formatDate = (date: string) => {
@@ -9,13 +9,13 @@ const WeatherCard = ({ list, index, date }: { list: any, index: number, date: st
   };
 
   return (
-    <View key={date} style={styles.forecastItem}>
-      <Text style={styles.forecastTemp}>
+    <View key={date} style={styles.item}>
+      <Text style={styles.temp}>
         {Math.round(list.temperature_2m[index])}°
       </Text>
       <WeatherIcon code={list.weather_code[index]} size={40} color="#4A90E2" />
 
-      <Text style={styles.forecastTime}>{formatDate(date)}</Text>
+      <Text style={styles.time}>{formatDate(date)}</Text>
     </View>
   );
 };
@@ -23,7 +23,7 @@ const WeatherCard = ({ list, index, date }: { list: any, index: number, date: st
 export default WeatherCard;
 
 const styles = StyleSheet.create({
-  forecastItem: {
+  item: {
     alignItems: "center",
     marginRight: 15,
     backgroundColor: "transparent",
@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
     width: 80,
   },
  
-  forecastTemp: {
+  temp: {
     fontSize: 18,
     color: "#fff",
     marginBottom: 3,
   },
-  forecastTime: {
+  time: {
     fontSize: 12,
     color: "#ccc",
     marginTop: 5,

@@ -1,13 +1,14 @@
 import { View } from "react-native"
 
 import { Text, StyleSheet } from "react-native";
-import { WeatherIcon } from "@/components/WeatherIcon";
+import { WeatherIcon } from "@/components/icons/WeatherIcon";
 import React from "react";
 import { WeatherCodes } from "@/utils/WeatherCodes";
+import { WeatherData } from "@/types/weather";
 
-const WeatherSummary = ({ weatherData, selectedLocation }: { weatherData: any, selectedLocation: any }  ) => {
+const WeatherSummary = ({ weatherData, selectedLocation }: { weatherData: WeatherData, selectedLocation: any }  ) => {
   return (
-    <View style={styles.weatherSummaryContainer}>
+    <View style={styles.container}>
       <Text style={styles.locationName}>{selectedLocation?.name}</Text>
       <WeatherIcon
         code={weatherData.current.weather_code}
@@ -17,8 +18,9 @@ const WeatherSummary = ({ weatherData, selectedLocation }: { weatherData: any, s
       <Text style={styles.temperature}>
         {Math.round(weatherData.current.temperature_2m)}°
       </Text>
-      <Text style={styles.weatherDescription}>{WeatherCodes[weatherData.current.weather_code].split(":")[0]}</Text>
-      
+      <Text style={styles.desc}>
+        {WeatherCodes[weatherData.current.weather_code as keyof typeof WeatherCodes].split(":")[0]}
+      </Text>
     </View>
   );
 };
@@ -26,7 +28,7 @@ const WeatherSummary = ({ weatherData, selectedLocation }: { weatherData: any, s
 export default WeatherSummary;
 
 const styles = StyleSheet.create({
-  weatherSummaryContainer: {
+  container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -38,14 +40,18 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#fff",
     marginBottom: 10,
+    fontFamily: 'Inter-Regular',
   },
   temperature: {
     fontSize: 88,
     fontWeight: "bold",
     color: "white",
+    fontFamily: 'Inter-Regular',
+    letterSpacing: 6,
   },
-  weatherDescription: {
+  desc: {
     fontSize: 32,
     color: "white",
+    fontFamily: 'Inter-Regular',
   },
 });

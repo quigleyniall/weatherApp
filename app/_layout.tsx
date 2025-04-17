@@ -1,5 +1,4 @@
 import {
-  DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
@@ -9,17 +8,37 @@ import "react-native-reanimated";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import { WeatherProvider } from "@/context/WeatherContext";
-import { DrawerContent } from "@/components/DrawerContent";
-import "../styling/global.css";
+import { DrawerContent } from "@/components/drawer/DrawerContent";
+import { useCallback } from "react";
+import { useFonts } from "expo-font";
+import { Text, View } from "react-native";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    'Inter-Regular': require('../assets/fonts/Inter-Regular.ttf'),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <ThemeProvider value={DefaultTheme}>
       <WeatherProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
           <Drawer
             drawerContent={(props) => <DrawerContent {...props} />}
             screenOptions={{
@@ -31,6 +50,9 @@ export default function RootLayout() {
               headerShadowVisible: false, 
               drawerStyle: {
                 backgroundColor: "rgb(13, 149, 212)",
+              },
+              headerTitleStyle: {
+                fontFamily: 'Inter-SemiBold',
               },
             }}
           >

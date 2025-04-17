@@ -5,7 +5,7 @@ import { View, Text, StyleSheet } from "react-native";
 const ErrorLoading = ({ error, refreshWeather }: { error: string, refreshWeather: () => void }) => (
     <View style={styles.errorContainer}>
     <Text style={styles.errorText}>{error}</Text>
-    <TouchableOpacity style={styles .retryButton} onPress={refreshWeather}>
+    <TouchableOpacity style={styles.retryButton} onPress={refreshWeather}>
       <Text style={styles.retryButtonText}>Retry</Text>
     </TouchableOpacity>
   </View>
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
       color: "red",
       textAlign: "center",
       marginBottom: 20,
+      fontFamily: 'Inter-Regular',
     },
     retryButton: {
       backgroundColor: "#4A90E2",
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
     retryButtonText: {
       color: "white",
       fontSize: 16,
+      fontFamily: 'Inter-Regular',
     },
   });
   

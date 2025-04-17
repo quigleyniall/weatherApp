@@ -1,8 +1,9 @@
 import { View, StyleSheet } from "react-native";
 import WeatherDetails from "@/components/WeatherDetails";
 import React from "react";
+import { WeatherData } from "@/types/weather";
 
-const WeatherDetailContainer = ({ weatherData }: { weatherData: any }) => {
+const WeatherDetailContainer = ({ weatherData }: { weatherData: WeatherData }) => {
   const list = [
     {
       icon: "water-percent",

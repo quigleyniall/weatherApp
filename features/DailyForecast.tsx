@@ -1,7 +1,8 @@
-import VerticalList from "@/components/VerticalList";
+import VerticalList from "@/components/lists/VerticalList";
 import WeatherListItem from "@/components/WeatherListItem";
+import { WeatherData } from "@/types/weather";
 
-const DailyForecast = ({ weatherData }: { weatherData: any }) => {
+const DailyForecast = ({ weatherData }: { weatherData: WeatherData }) => {
     return (
         <VerticalList title="Daily Forecast">
             {weatherData.daily.time.map((date: string, index: number) => (

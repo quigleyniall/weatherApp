@@ -1,4 +1,4 @@
-import HorizontalList from "@/components/HorizontalList";
+import HorizontalList from "@/components/lists/HorizontalList";
 import WeatherCard from "@/components/WeatherCard";
 
 const HourlyForecast = ({ list }: { list: any }) => {
@@ -9,7 +9,7 @@ const HourlyForecast = ({ list }: { list: any }) => {
   endDate.setDate(endDate.getDate() + 1);
 
   return (
-    <HorizontalList title="Hourly Forecast">
+    <HorizontalList title="Today">
       {list.time.map(
         (date: string, index: number) =>
           new Date(date) > startDate &&

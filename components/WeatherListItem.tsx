@@ -1,8 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
-import { WeatherIcon } from "./WeatherIcon";
+import { WeatherIcon } from "./icons/WeatherIcon";
 import { WeatherCodes } from "@/utils/WeatherCodes";
+import { WeatherData } from "@/types/weather";
 
-const WeatherListItem = ({ weatherData, index, date }: { weatherData: any, index: number, date: string }) => {
+const WeatherListItem = ({ weatherData, index, date }: { weatherData: WeatherData, index: number, date: string }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.forecastDay}>
@@ -18,7 +19,7 @@ const WeatherListItem = ({ weatherData, index, date }: { weatherData: any, index
           color="#4A90E2"
         />
         <Text style={styles.forcast}>
-          {WeatherCodes[weatherData.daily.weather_code[index]].split(":")[0]}
+          {WeatherCodes[weatherData.daily.weather_code[index] as keyof typeof WeatherCodes].split(":")[0]}
         </Text>
       </View>
       <View style={styles.forecastTempContainer}>
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
     color: "#ccc",
     marginBottom: 5,
     flexBasis: "30%",
+    fontFamily: 'Inter-Regular',
   },
   forecastContainer: {
     display: "flex",
@@ -58,9 +60,24 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
-  forecastTempMin: { fontSize: 18, color: "#ccc", marginLeft: 5 },
-  forecastTempMax: { fontSize: 18, color: "#fff", fontWeight: "700" },
-  forcast: { fontSize: 18, color: "#ccc", marginLeft: 10 },
+  forecastTempMin: { 
+    fontSize: 18, 
+    color: "#ccc", 
+    marginLeft: 5,
+    fontFamily: 'Inter-Regular',
+  },
+  forecastTempMax: { 
+    fontSize: 18, 
+    color: "#fff", 
+    fontWeight: "700",
+    fontFamily: 'Inter-Regular',
+  },
+  forcast: { 
+    fontSize: 18, 
+    color: "#ccc", 
+    marginLeft: 10,
+    fontFamily: 'Inter-Regular',
+  },
   forecastTempContainer: {
     display: "flex",
     flexDirection: "row",

@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   View,
-  Text,
-  ActivityIndicator,
-  TouchableOpacity,
   ScrollView,
   RefreshControl,
 } from "react-native";
@@ -15,8 +12,9 @@ import WeatherDetailContainer from "@/features/WeatherDetailContainer";
 import WeatherSummary from "@/features/WeatherSummary";
 import DailyForecast from "@/features/DailyForecast";
 import { LinearGradient } from "expo-linear-gradient";
-import Loading from "@/components/Loading";
-import ErrorLoading from "@/components/ErrorLoading";
+import Loading from "@/components/loading/Loading";
+import ErrorLoading from "@/components/loading/ErrorLoading";
+
 export default function HomeScreen() {
   const { weatherData, selectedLocation, loading, error, refreshWeather } =
     useWeather();
