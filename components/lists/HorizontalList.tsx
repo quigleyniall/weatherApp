@@ -9,8 +9,8 @@ const HorizontalList = ({
   children: React.ReactNode;
 }) => {
   return (
-    <View style={styles.forecastContainer}>
-      {title && <Text style={styles.forecastTitle}>{title}</Text>}
+    <View style={styles.container}>
+      {title && <Text style={styles.title}>{title}</Text>}
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {children}
       </ScrollView>
@@ -20,10 +20,10 @@ const HorizontalList = ({
 
 export default HorizontalList;
 const styles = StyleSheet.create({
-  forecastContainer: {
+  container: {
     width: "100%",
   },
-  forecastTitle: {
+  title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,

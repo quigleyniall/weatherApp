@@ -4,7 +4,7 @@ import { WeatherData } from "@/types/weather";
 
 const DailyForecast = ({ weatherData }: { weatherData: WeatherData }) => {
     return (
-        <VerticalList title="Daily Forecast">
+        <VerticalList title="7 Day Forecast">
             {weatherData.daily.time.map((date: string, index: number) => (
                 <WeatherListItem key={index}weatherData={weatherData} index={index} date={date} />
             ))}

@@ -9,11 +9,11 @@ const WeatherCard = ({ list, index, date }: { list: any, index: number, date: st
   };
 
   return (
-    <View key={date} style={styles.item}>
+    <View style={styles.item}>
       <Text style={styles.temp}>
         {Math.round(list.temperature_2m[index])}°
       </Text>
-      <WeatherIcon code={list.weather_code[index]} size={40} color="#4A90E2" />
+      <WeatherIcon code={list.weather_code[index]} size={40} />
 
       <Text style={styles.time}>{formatDate(date)}</Text>
     </View>

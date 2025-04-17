@@ -7,7 +7,7 @@ const HourlyForecast = ({ list }: { list: any }) => {
 
   const endDate = new Date();
   endDate.setDate(endDate.getDate() + 1);
-
+  
   return (
     <HorizontalList title="Today">
       {list.time.map(

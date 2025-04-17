@@ -4,16 +4,18 @@ import { Text, StyleSheet } from "react-native";
 import { WeatherIcon } from "@/components/icons/WeatherIcon";
 import React from "react";
 import { WeatherCodes } from "@/utils/WeatherCodes";
-import { WeatherData } from "@/types/weather";
+import { Location, WeatherData } from "@/types/weather";
 
-const WeatherSummary = ({ weatherData, selectedLocation }: { weatherData: WeatherData, selectedLocation: any }  ) => {
+const WeatherSummary = ({ weatherData, selectedLocation }: { weatherData: WeatherData, selectedLocation: Location }  ) => {
+  const today = new Date();
+  const day = today.toLocaleDateString('en-US', { weekday: 'long' });
+  const date = today.toLocaleDateString('en-uk', { day: 'numeric', month: 'long',  });
   return (
     <View style={styles.container}>
       <Text style={styles.locationName}>{selectedLocation?.name}</Text>
       <WeatherIcon
         code={weatherData.current.weather_code}
-        size={180}
-        color="#fff"
+        size={170}
       />
       <Text style={styles.temperature}>
         {Math.round(weatherData.current.temperature_2m)}°
@@ -21,6 +23,7 @@ const WeatherSummary = ({ weatherData, selectedLocation }: { weatherData: Weathe
       <Text style={styles.desc}>
         {WeatherCodes[weatherData.current.weather_code as keyof typeof WeatherCodes].split(":")[0]}
       </Text>
+      <Text style={styles.date}>{day}, {date}</Text>
     </View>
   );
 };
@@ -33,13 +36,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 30,
+    paddingVertical: 20,
   },
   locationName: {
     fontSize: 40,
     fontWeight: "500",
     color: "#fff",
-    marginBottom: 10,
+    marginBottom: 5,
     fontFamily: 'Inter-Regular',
   },
   temperature: {
@@ -47,11 +50,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     fontFamily: 'Inter-Regular',
-    letterSpacing: 6,
   },
   desc: {
     fontSize: 32,
     color: "white",
+    fontFamily: 'Inter-Regular',
+  },  
+  date: {
+    fontSize: 16,
+    color: "#ccc",
     fontFamily: 'Inter-Regular',
   },
 });

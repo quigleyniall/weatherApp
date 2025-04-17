@@ -16,7 +16,6 @@ const WeatherListItem = ({ weatherData, index, date }: { weatherData: WeatherDat
         <WeatherIcon
           code={weatherData.daily.weather_code[index]}
           size={30}
-          color="#4A90E2"
         />
         <Text style={styles.forcast}>
           {WeatherCodes[weatherData.daily.weather_code[index] as keyof typeof WeatherCodes].split(":")[0]}
