@@ -1,7 +1,7 @@
 import HorizontalList from "@/components/HorizontalList";
 import WeatherCard from "@/components/WeatherCard";
 
-const HourlyForecast = ({ list }) => {
+const HourlyForecast = ({ list }: { list: any }) => {
   const startDate = new Date();
   startDate.setHours(startDate.getHours() - 1);
 
@@ -14,7 +14,7 @@ const HourlyForecast = ({ list }) => {
         (date: string, index: number) =>
           new Date(date) > startDate &&
           new Date(date) < endDate && (
-            <WeatherCard list={list} index={index} date={date} />
+            <WeatherCard key={index} list={list} index={index} date={date} />
           )
       )}
     </HorizontalList>

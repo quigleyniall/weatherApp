@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   selectedLocation: {
-    backgroundColor: "#4A90E2",
+    backgroundColor: "#1168F1",
   },
   locationText: {
     fontSize: 16,

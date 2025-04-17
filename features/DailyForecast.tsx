@@ -5,7 +5,7 @@ const DailyForecast = ({ weatherData }: { weatherData: any }) => {
     return (
         <VerticalList title="Daily Forecast">
             {weatherData.daily.time.map((date: string, index: number) => (
-                <WeatherListItem weatherData={weatherData} index={index} date={date} />
+                <WeatherListItem key={index}weatherData={weatherData} index={index} date={date} />
             ))}
         </VerticalList>
     )

@@ -18,11 +18,12 @@ export default HorizontalList;
 const styles = StyleSheet.create({
   forecastContainer: {
     width: "100%",
-    marginTop: 20,
+    
   },
   forecastTitle: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
+    color: "#fff",
   },
 });

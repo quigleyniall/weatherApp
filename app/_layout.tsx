@@ -24,11 +24,13 @@ export default function RootLayout() {
             drawerContent={(props) => <DrawerContent {...props} />}
             screenOptions={{
               headerStyle: {
-                backgroundColor: "transparent", 
+                backgroundColor: "rgba(17, 180, 255, 1)", 
+                borderBottomWidth: 0
               },
+              headerTintColor: "#fff",
               headerShadowVisible: false, 
               drawerStyle: {
-                backgroundColor: "#0654A3",
+                backgroundColor: "rgb(13, 149, 212)",
               },
             }}
           >

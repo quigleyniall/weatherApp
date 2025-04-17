@@ -21,8 +21,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   forecastTitle: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
+    color: "#fff",
   },
 });
