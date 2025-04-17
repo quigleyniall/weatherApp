@@ -10,10 +10,10 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import { WeatherProvider } from "@/context/WeatherContext";
 import { DrawerContent } from "@/components/DrawerContent";
-import "./global.css";
+import "../styling/global.css";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   return (

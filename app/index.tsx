@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   StyleSheet,
-  Platform,
   View,
   Text,
   ActivityIndicator,
@@ -10,10 +9,11 @@ import {
   RefreshControl,
 } from "react-native";
 import { useWeather } from "@/context/WeatherContext";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-
-import { WeatherIcon } from "../components/WeatherIcon";
 import { WeatherCodes } from "@/utils/WeatherCodes";
+import HourlyForcast from "@/features/HourlyForecast";
+import WeatherDetailContainer from "@/features/WeatherDetailContainer";
+import WeatherSummary from "@/features/WeatherSummary";
+import DailyForecast from "@/features/DailyForecast";
 
 export default function HomeScreen() {
   const {
@@ -45,20 +45,6 @@ export default function HomeScreen() {
     );
   }
 
-  const startDate = new Date();
-  startDate.setHours(startDate.getHours() - 1);
-
-  const endDate = new Date();
-  endDate.setDate(endDate.getDate() + 1);
-
-  const formatDate = (date: string) => {
-    const dateObj = new Date(date);
-    let hours = dateObj.getHours();
-    let formattedHours = hours % 12 || 12;
-    let ampm = hours >= 12 ? "PM" : "AM";
-    return `${formattedHours} ${ampm}`;
-  };
-
   return (
     <ScrollView
       style={styles.container}
@@ -68,89 +54,16 @@ export default function HomeScreen() {
     >
       {weatherData && (
         <View style={styles.weatherContainer}>
-          <Text style={styles.locationName}>{selectedLocation?.name}</Text>
-          <WeatherIcon
-            code={weatherData.current.weather_code}
-            size={100}
-            color="#4A90E2"
+          <WeatherSummary
+            weatherData={weatherData}
+            selectedLocation={selectedLocation}
           />
-          <Text style={styles.temperature}>
-            {Math.round(weatherData.current.temperature_2m)}°C
-          </Text>
-          <Text style={styles.feelsLike}>
-            Feels like {Math.round(weatherData.current.apparent_temperature)}°C
-          </Text>
-
-          <View style={styles.detailsContainer}>
-            <View style={styles.detailItem}>
-              <Icon name="water-percent" size={24} color="#4A90E2" />
-              <Text style={styles.detailText}>
-                {weatherData.current.relative_humidity_2m}%
-              </Text>
-            </View>
-            <View style={styles.detailItem}>
-              <Icon name="weather-windy" size={24} color="#4A90E2" />
-              <Text style={styles.detailText}>
-                {Math.round(weatherData.current.wind_speed_10m)} km/h
-              </Text>
-            </View>
-            <View style={styles.detailItem}>
-              <Icon name="water" size={24} color="#4A90E2" />
-              <Text style={styles.detailText}>
-                {weatherData.current.precipitation} mm
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.forecastContainer}>
-            <Text style={styles.forecastTitle}>
-              {WeatherCodes[weatherData.current.weather_code]}
-            </Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {weatherData.hourly.time.map(
-                (date, index) =>
-                  new Date(date) > startDate && new Date(date) < endDate && (
-                    <View key={date} style={styles.forecastItem}>
-                      <Text style={styles.forecastDay}>{formatDate(date)}</Text>
-                      <WeatherIcon
-                        code={weatherData.hourly.weather_code[index]}
-                        size={40}
-                        color="#4A90E2"
-                      />
-                      <Text style={styles.forecastTemp}>
-                        {Math.round(weatherData.hourly.temperature_2m[index])}°
-                      </Text>
-                    </View>
-                  )
-              )}
-            </ScrollView>
-          </View>
-
-          <View style={styles.forecastContainer}>
-            <Text style={styles.forecastTitle}>7-Day Forecast</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {weatherData.daily.time.map((date, index) => (
-                <View key={date} style={styles.forecastItem}>
-                  <Text style={styles.forecastDay}>
-                    {new Date(date).toLocaleDateString("en-US", {
-                      weekday: "short",
-                    })}
-                  </Text>
-                  <WeatherIcon
-                    code={weatherData.daily.weather_code[index]}
-                    size={40}
-                    color="#4A90E2"
-                  />
-                  <Text style={styles.forecastTemp}>
-                    {Math.round(weatherData.daily.temperature_2m_max[index])}°
-                  </Text>
-                  <Text style={styles.forecastTempMin}>
-                    {Math.round(weatherData.daily.temperature_2m_min[index])}°
-                  </Text>
-                </View>
-              ))}
-            </ScrollView>
-          </View>
+          <WeatherDetailContainer weatherData={weatherData} />
+          <HourlyForcast
+            list={weatherData.hourly}
+            title={WeatherCodes[weatherData.current.weather_code]}
+          />
+          <DailyForecast weatherData={weatherData} />
         </View>
       )}
     </ScrollView>
@@ -241,37 +154,6 @@ const styles = StyleSheet.create({
   },
   detailText: {
     marginTop: 5,
-    fontSize: 14,
-    color: "#666",
-  },
-  forecastContainer: {
-    width: "100%",
-    marginTop: 20,
-  },
-  forecastTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  forecastItem: {
-    alignItems: "center",
-    marginRight: 20,
-    backgroundColor: "white",
-    padding: 10,
-    borderRadius: 10,
-    width: 80,
-  },
-  forecastDay: {
-    fontSize: 14,
-    color: "#666",
-    marginBottom: 5,
-  },
-  forecastTemp: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  forecastTempMin: {
     fontSize: 14,
     color: "#666",
   },
