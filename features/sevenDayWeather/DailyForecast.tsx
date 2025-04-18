@@ -1,4 +1,3 @@
-import { StyleSheet } from "react-native";
 import WeatherListItem from "@/components/WeatherListItem";
 import { WeatherData } from "@/types/weather";
 import { WeatherCodes } from "@/utils/WeatherCodes";
@@ -14,7 +13,11 @@ const DailyForecast: React.FC<Props> = ({ weatherData }) => {
     return days[dateObj.getDay()];
   };
 
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() + 1);
+
   return weatherData.daily.time.map((date: string, index: number) => (
+    date > startDate.toISOString() &&
     <WeatherListItem
       key={index}
       temperatureMax={Math.round(weatherData.daily.temperature_2m_max[index])}

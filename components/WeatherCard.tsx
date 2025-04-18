@@ -16,7 +16,6 @@ const WeatherCard: React.FC<Props> = ({
     <View style={styles.item}>
       <Text style={styles.temp}>{temperature}°</Text>
       <WeatherIcon code={weatherCode} size={32} />
-
       <Text style={styles.time}>{formattedTime}</Text>
     </View>
   );

@@ -11,9 +11,7 @@ import { WeatherProvider } from "@/context/WeatherContext";
 import { DrawerContent } from "@/components/drawer/DrawerContent";
 import { useCallback } from "react";
 import { useFonts } from "expo-font";
-import { Pressable, Text, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { Text, View } from "react-native";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -60,20 +58,9 @@ export default function RootLayout() {
           >
             <Drawer.Screen
               name="index"
-              options={{
-                title: ''
-              }}
             />
             <Drawer.Screen
               name="sevenDaysWeather"
-              options={{
-                headerTitle: '7 Days',
-                headerLeft: () => (
-                  <Pressable onPress={() => router.back()} style={{ paddingLeft: 10 }}>
-                    <Ionicons name="arrow-back" size={24} color="white" />
-                  </Pressable>
-                ),
-              }}
             />
           </Drawer>
           <StatusBar style="auto" />

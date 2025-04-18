@@ -4,11 +4,9 @@ import { Text, StyleSheet } from "react-native";
 import { WeatherIcon } from "@/components/icons/WeatherIcon";
 import React from "react";
 import { WeatherCodes } from "@/utils/WeatherCodes";
-import { Location, WeatherData } from "@/types/weather";
+import { WeatherData } from "@/types/weather";
 interface Props {
   weatherData: WeatherData;
-  selectedLocation: Location;
-  myLocation: Location;
 }
 
 const WeatherSummary: React.FC<Props> = ({
@@ -17,23 +15,23 @@ const WeatherSummary: React.FC<Props> = ({
   return (
     <View style={styles.container}>
         <View style={styles.weatherIconContainer}>
-      <WeatherIcon code={weatherData.current.weather_code} size={100} />
+      <WeatherIcon code={weatherData.daily.weather_code[1]} size={100} />
       </View>
       <View style={styles.temperatureInfo}>
         <Text style={styles.title}>Tomorrow</Text>
 
         <View style={styles.temperatureContainer}>
           <Text style={styles.temperatureMax}>
-            {Math.round(weatherData.daily.temperature_2m_max[0])}°
+            {Math.round(weatherData.daily.temperature_2m_max[1])}°
           </Text>
           <Text style={styles.temperatureMin}>
-            /{Math.round(weatherData.daily.temperature_2m_min[0])}°
+            /{Math.round(weatherData.daily.temperature_2m_min[1])}°
           </Text>
         </View>
         <Text style={styles.desc}>
           {
             WeatherCodes[
-              weatherData.current.weather_code as keyof typeof WeatherCodes
+              weatherData.daily.weather_code[1] as keyof typeof WeatherCodes
             ].split(":")[0]
           }
         </Text>

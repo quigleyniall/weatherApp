@@ -1,23 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   View,
   ScrollView,
   RefreshControl,
+  Text
 } from "react-native";
 import { useWeather } from "@/context/WeatherContext";
-import { WeatherCodes } from "@/utils/WeatherCodes";
 import HourlyForcast from "@/features/today/HourlyForecast";
-import WeatherDetailContainer from "@/features/WeatherDetailContainer";
+import WeatherDetails from "@/components/WeatherDetails";
 import WeatherSummary from "@/features/today/WeatherSummary";
-import DailyForecast from "@/features/sevenDayWeather/DailyForecast";
 import { LinearGradient } from "expo-linear-gradient";
+
 import Loading from "@/components/loading/Loading";
 import ErrorLoading from "@/components/loading/ErrorLoading";
+import { useNavigation } from "expo-router";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function TodaysWeather() {
-  const { weatherData, selectedLocation, myLocation, loading, error, refreshWeather } =
-    useWeather();
+  const {
+    weatherData,
+    selectedLocation,
+    myLocation,
+    loading,
+    error,
+    refreshWeather,
+  } = useWeather();
+  const navigation = useNavigation();
+  
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: () => (
+        <View style={styles.titleContainer}>
+          {selectedLocation.name === myLocation?.name && (
+            <FontAwesome5 name="map-marker-alt" size={24} color="white" />
+          )}
+          <Text style={styles.locationName}>{selectedLocation?.name}</Text>
+        </View>
+      ),
+      headerTitleAlign: "center",
+    });
+  }, [navigation, selectedLocation, myLocation]);
 
   if (loading && !weatherData) {
     return <Loading />;
@@ -46,18 +69,35 @@ export default function TodaysWeather() {
           >
             <WeatherSummary
               weatherData={weatherData}
-              selectedLocation={selectedLocation}
-              myLocation={myLocation}
             />
-
-            <WeatherDetailContainer weatherData={weatherData} />
+            <View style={styles.detailsContainer}>
+              <WeatherDetails
+                icon="wind"
+                iconColor="#fff"
+                text={`${Math.round(weatherData.current.wind_speed_10m)}km/h`}
+                size={30}
+                subText="Wind"
+              />
+              <WeatherDetails
+                icon="tint"
+                iconColor="#fff"
+                text={`${weatherData.current.relative_humidity_2m}%`}
+                size={30}
+                subText="Humidity"
+              />
+              <WeatherDetails
+                icon="water"
+                iconColor="#fff"
+                text={`${weatherData.current.precipitation}mm`}
+                size={30}
+                subText="Precipitation"
+              />
+            </View>
           </LinearGradient>
           <View style={styles.weatherContainer}>
             <HourlyForcast
               weatherData={weatherData}
-              title={WeatherCodes[weatherData.current.weather_code as keyof typeof WeatherCodes].split(":")[0]}
             />
-            
           </View>
         </View>
       )}
@@ -76,8 +116,29 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
   },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    gap: 8,
+  },
+  locationName: {
+    fontSize: 24,
+    fontWeight: "500",
+    color: "#fff",
+    fontFamily: "Inter-Regular",
+  },
   weatherContainer: {
     alignItems: "center",
     padding: 20,
+  },
+  detailsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 20,
+    marginHorizontal: 30,
+    borderTopWidth: 2,
+    borderTopColor: '#5EA0EB',
   },
 });
