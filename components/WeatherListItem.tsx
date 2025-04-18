@@ -1,14 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
 import { WeatherIcon } from "./icons/WeatherIcon";
+import { DailyForecast } from "@/types/weather";
 
-interface Props {
-  temperatureMax: number, 
-  temperatureMin: number, 
-  weatherCode: number, 
-  formattedDay: string,
-  weatherDescription: string
-}
-const WeatherListItem:React.FC<Props> = ({ 
+
+const WeatherListItem:React.FC<DailyForecast> = ({ 
   temperatureMax, 
   temperatureMin, 
   weatherCode, 

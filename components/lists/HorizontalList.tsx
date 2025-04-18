@@ -4,18 +4,19 @@ import { FontAwesome5 } from '@expo/vector-icons';
 interface Props {
   title?: string;
   children: React.ReactNode;
-  link?: boolean;
+  link?: string;
+  linkText?: string;
 }
 
-const HorizontalList: React.FC<Props> = ({ title, children, link = true }) => {
+const HorizontalList: React.FC<Props> = ({ title, children, link, linkText }) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         {title && <Text style={styles.title}>{title}</Text>}
-        {link && (
+        {!!link && (
           <Link href={"/sevenDaysWeather"}>
             <View style={styles.link}>
-              <Text style={styles.linkText}>7 Days</Text>
+              <Text style={styles.linkText}>{linkText}</Text>
               <FontAwesome5 name="arrow-right" size={16} color="#999" />
               </View>
           </Link>

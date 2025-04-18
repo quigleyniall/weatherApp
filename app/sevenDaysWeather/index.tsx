@@ -8,7 +8,6 @@ import {
   Text,
 } from "react-native";
 import { useWeather } from "@/context/WeatherContext";
-import WeatherDetails from "@/components/WeatherDetails";
 import WeatherSummary from "@/features/sevenDayWeather/WeatherSummary";
 import DailyForecast from "@/features/sevenDayWeather/DailyForecast";
 import { LinearGradient } from "expo-linear-gradient";
@@ -16,6 +15,7 @@ import Loading from "@/components/loading/Loading";
 import ErrorLoading from "@/components/loading/ErrorLoading";
 import { router, useNavigation } from "expo-router";
 import { FontAwesome5 } from "@expo/vector-icons";
+import WeatherDetailsContainer from "@/components/WeatherDetailsContainer";
 
 export default function SevenDaysWeather() {
   const navigation = useNavigation();
@@ -64,28 +64,11 @@ export default function SevenDaysWeather() {
             ]}
             style={styles.headerContainer}
           >
-            <WeatherSummary weatherData={weatherData} />
-
-            <View style={styles.detailsContainer}>
-              <WeatherDetails
-                icon="wind"
-                iconColor="#fff"
-                text={`Up to ${Math.round(weatherData.daily.wind_speed_10m_max[1])} km/h`}
-                size={30}
-                subText="Wind"
-              />
-              <WeatherDetails
-                icon="water"
-                iconColor="#fff"
-                text={`${weatherData.daily.precipitation_probability_mean[1]}% Chance`}
-                size={30}
-                subText="Precipitation"
-              />
-            </View>
+            <WeatherSummary {...weatherData.tomorrow.summary} />
+            <WeatherDetailsContainer icons={weatherData.tomorrow.icons} />
           </LinearGradient>
-          <View style={styles.weatherContainer}>
-            <DailyForecast weatherData={weatherData} />
-          </View>
+
+          <DailyForecast forecasts={weatherData.daily.forecasts} />
         </View>
       )}
     </ScrollView>
@@ -103,10 +86,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
   },
-  weatherContainer: {
-    alignItems: "center",
-    padding: 20,
-  },
+
   headerTitleContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -119,13 +99,5 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#fff",
     fontFamily: "Inter-Regular",
-  },
-  detailsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 20,
-    marginHorizontal: 30,
-    borderTopWidth: 2,
-    borderTopColor: '#5EA0EB',
   },
 });

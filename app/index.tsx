@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { useWeather } from "@/context/WeatherContext";
 import HourlyForcast from "@/features/today/HourlyForecast";
-import WeatherDetails from "@/components/WeatherDetails";
 import WeatherSummary from "@/features/today/WeatherSummary";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -16,6 +15,7 @@ import Loading from "@/components/loading/Loading";
 import ErrorLoading from "@/components/loading/ErrorLoading";
 import { useNavigation } from "expo-router";
 import { FontAwesome5 } from "@expo/vector-icons";
+import WeatherDetailsContainer from "@/components/WeatherDetailsContainer";
 
 export default function TodaysWeather() {
   const {
@@ -68,35 +68,13 @@ export default function TodaysWeather() {
             style={styles.headerContainer}
           >
             <WeatherSummary
-              weatherData={weatherData}
+              {...weatherData.current.summary}
             />
-            <View style={styles.detailsContainer}>
-              <WeatherDetails
-                icon="wind"
-                iconColor="#fff"
-                text={`${Math.round(weatherData.current.wind_speed_10m)}km/h`}
-                size={30}
-                subText="Wind"
-              />
-              <WeatherDetails
-                icon="tint"
-                iconColor="#fff"
-                text={`${weatherData.current.relative_humidity_2m}%`}
-                size={30}
-                subText="Humidity"
-              />
-              <WeatherDetails
-                icon="water"
-                iconColor="#fff"
-                text={`${weatherData.current.precipitation}mm`}
-                size={30}
-                subText="Precipitation"
-              />
-            </View>
+            <WeatherDetailsContainer icons={weatherData.current.icons} />
           </LinearGradient>
           <View style={styles.weatherContainer}>
             <HourlyForcast
-              weatherData={weatherData}
+              forecasts={weatherData.hourly.forecasts}
             />
           </View>
         </View>

@@ -3,42 +3,29 @@ import { View } from "react-native";
 import { Text, StyleSheet } from "react-native";
 import { WeatherIcon } from "@/components/icons/WeatherIcon";
 import React from "react";
-import { WeatherCodes } from "@/utils/WeatherCodes";
-import { WeatherData } from "@/types/weather";
-interface Props {
-  weatherData: WeatherData;
-}
+import { WeatherTomorrow } from "@/types/weather";
 
-const WeatherSummary: React.FC<Props> = ({
-  weatherData,
-}) => {
-  return (
-    <View style={styles.container}>
-        <View style={styles.weatherIconContainer}>
-      <WeatherIcon code={weatherData.daily.weather_code[1]} size={100} />
-      </View>
-      <View style={styles.temperatureInfo}>
-        <Text style={styles.title}>Tomorrow</Text>
-
-        <View style={styles.temperatureContainer}>
-          <Text style={styles.temperatureMax}>
-            {Math.round(weatherData.daily.temperature_2m_max[1])}°
-          </Text>
-          <Text style={styles.temperatureMin}>
-            /{Math.round(weatherData.daily.temperature_2m_min[1])}°
-          </Text>
-        </View>
-        <Text style={styles.desc}>
-          {
-            WeatherCodes[
-              weatherData.daily.weather_code[1] as keyof typeof WeatherCodes
-            ].split(":")[0]
-          }
-        </Text>
-      </View>
+const WeatherSummary: React.FC<WeatherTomorrow> = ({
+  temperatureMax,
+  temperatureMin,
+  weatherCode,
+  weatherDescription,
+  title
+}) => (
+  <View style={styles.container}>
+    <View style={styles.weatherIconContainer}>
+      <WeatherIcon code={weatherCode} size={100} />
     </View>
-  );
-};
+    <View style={styles.temperatureInfo}>
+      <Text style={styles.title}>{title}</Text>
+      <View style={styles.temperatureContainer}>
+        <Text style={styles.temperatureMax}>{temperatureMax}°</Text>
+        <Text style={styles.temperatureMin}>/{temperatureMin}°</Text>
+      </View>
+      <Text style={styles.desc}>{weatherDescription}</Text>
+    </View>
+  </View>
+);
 
 export default WeatherSummary;
 

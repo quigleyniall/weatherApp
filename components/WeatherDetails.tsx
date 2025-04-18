@@ -1,16 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { WeatherIcons } from "@/types/weather";
 
-interface Props {
-  icon: string;
-  iconColor: string;
-  text: string;
-  size: number;
-  subText: string;
-}
-
-const WeatherDetails: React.FC<Props> = ({
+const WeatherDetails: React.FC<WeatherIcons> = ({
   icon,
   iconColor,
   text,

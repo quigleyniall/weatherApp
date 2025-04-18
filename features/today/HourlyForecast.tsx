@@ -1,38 +1,21 @@
 import HorizontalList from "@/components/lists/HorizontalList";
 import WeatherCard from "@/components/WeatherCard";
-import { WeatherData } from "@/types/weather";
 
-interface Props {
-  weatherData: WeatherData;
+interface Forecast {
+  temperature: number;
+  weatherCode: number;
+  formattedTime: string;
 }
 
-const HourlyForecast:React.FC<Props> = ({ weatherData }) => {
-  const startDate = new Date();
-  startDate.setHours(startDate.getHours() - 1);
-
-  const endDate = new Date();
-  endDate.setDate(endDate.getDate() + 1);
-  
-  const formatDate = (date: string) => {
-    const dateObj = new Date(date);
-    let hours = dateObj.getHours();
-    return `${hours}:00`;
-  };
-  
+const HourlyForecast: React.FC<{ forecasts: Forecast[] }> = ({ forecasts }) => {
   return (
-    <HorizontalList title="Today">
-      {weatherData.hourly.time.map(
-        (date: string, index: number) =>
-          new Date(date) > startDate &&
-          new Date(date) < endDate && (
-            <WeatherCard 
-              key={index} 
-              temperature={Math.round(weatherData.hourly.temperature_2m[index])} 
-              weatherCode={weatherData.hourly.weather_code[index]} 
-              formattedTime={formatDate(date)} 
-            />
-          )
-      )}
+    <HorizontalList title="Today" linkText="7 Days" link="/sevenDaysWeather">
+      {forecasts.map((forecast: Forecast, index: number) => (
+        <WeatherCard
+          key={index} 
+          {...forecast}
+        />
+      ))}
     </HorizontalList>
   );
 };

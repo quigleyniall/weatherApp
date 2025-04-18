@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { WeatherData, Location, LOCATIONS } from "../types/weather";
+import { Location, LOCATIONS } from "../types/weather";
 import { getWeatherData } from "../services/weatherService";
 import * as ExpoLocation from "expo-location";
+import { FormattedWeatherData } from "../types/weather";
 
 interface WeatherContextType {
-  weatherData: WeatherData | null;
+  weatherData: FormattedWeatherData | null;
   selectedLocation: Location;
   myLocation: Location | null;
   locations: Location[];
@@ -19,7 +20,7 @@ const WeatherContext = createContext<WeatherContextType | undefined>(undefined);
 export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [weatherData, setWeatherData] = useState<FormattedWeatherData | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<Location>(
     LOCATIONS[0]
   );
@@ -43,7 +44,7 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({
       });
 
       return {
-        name: locationName[0].city || locationName[0].region || locationName[0].country,
+        name: locationName[0].city || locationName[0].region || locationName[0].country || "Unknown",
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       }

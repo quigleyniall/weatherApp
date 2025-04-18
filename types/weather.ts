@@ -1,3 +1,55 @@
+export interface FormattedWeatherData {
+  current: {summary:WeatherCurrent; icons: WeatherIcons[]}
+  tomorrow: { summary: WeatherTomorrow; icons: WeatherIcons[] };
+
+  hourly: {
+    forecasts: Array<HourlyForecast>;
+  };
+  daily: {
+    forecasts: Array<DailyForecast>;
+  };
+}
+
+export interface WeatherIcons {
+  icon: string;
+  text: string;
+  subText: string;
+  iconColor?: string;
+  size?: number;
+}
+
+export interface WeatherCurrent {
+  temperature: number;
+  humidity: number;
+  precipitation: number;
+  weatherCode: number;
+  windSpeed: number;
+  formattedDate: string;
+  weatherDescription: string;
+}
+
+export interface WeatherTomorrow {
+  temperatureMax: number;
+  temperatureMin: number;
+  weatherCode: number;
+  weatherDescription: string;
+  title: string;
+}
+
+export interface HourlyForecast {
+  temperature: number;
+  weatherCode: number;
+  formattedTime: string;
+}
+
+export interface DailyForecast {
+  temperatureMax: number;
+  temperatureMin: number;
+  weatherDescription: string;
+  weatherCode: number;
+  formattedDay: string;
+}
+
 export interface WeatherData {
   current: {
     temperature_2m: number;
