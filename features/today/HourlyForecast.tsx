@@ -1,16 +1,11 @@
 import HorizontalList from "@/components/lists/HorizontalList";
 import WeatherCard from "@/components/WeatherCard";
+import { HourlyForecast as HourlyForecastType } from "@/types/weather";
 
-interface Forecast {
-  temperature: number;
-  weatherCode: number;
-  formattedTime: string;
-}
-
-const HourlyForecast: React.FC<{ forecasts: Forecast[] }> = ({ forecasts }) => {
+const HourlyForecast: React.FC<{ forecasts: HourlyForecastType[] }> = ({ forecasts }) => {
   return (
     <HorizontalList title="Today" linkText="7 Days" link="/sevenDaysWeather">
-      {forecasts.map((forecast: Forecast, index: number) => (
+      {forecasts.map((forecast: HourlyForecastType, index: number) => (
         <WeatherCard
           key={index} 
           {...forecast}

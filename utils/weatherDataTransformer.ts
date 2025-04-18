@@ -45,10 +45,7 @@ export const transformWeatherData = (
     current: {
       summary: {
         temperature: Math.round(data.current.temperature_2m),
-        humidity: data.current.relative_humidity_2m,
-        precipitation: data.current.precipitation,
         weatherCode: data.current.weather_code,
-        windSpeed: Math.round(data.current.wind_speed_10m),
         formattedDate: formatCurrentDate(),
         weatherDescription: getWeatherDescription(data.current.weather_code),
       },

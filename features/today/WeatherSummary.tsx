@@ -1,15 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { WeatherIcon } from "@/components/icons/WeatherIcon";
+import { WeatherCurrent } from "@/types/weather";
 
-interface WeatherSummaryProps {
-  temperature: number;
-  weatherCode: number;
-  weatherDescription: string;
-  formattedDate: string;
-}
 
-const WeatherSummary: React.FC<WeatherSummaryProps> = ({
+const WeatherSummary: React.FC<WeatherCurrent> = ({
   temperature,
   weatherCode,
   weatherDescription,

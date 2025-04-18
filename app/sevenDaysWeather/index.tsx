@@ -15,7 +15,7 @@ import Loading from "@/components/loading/Loading";
 import ErrorLoading from "@/components/loading/ErrorLoading";
 import { router, useNavigation } from "expo-router";
 import { FontAwesome5 } from "@expo/vector-icons";
-import WeatherDetailsContainer from "@/components/WeatherDetailsContainer";
+import WeatherDetailsContainer from "@/features/WeatherDetailsContainer";
 
 export default function SevenDaysWeather() {
   const navigation = useNavigation();

@@ -2,7 +2,6 @@ import { View, Text, StyleSheet } from "react-native";
 import { WeatherIcon } from "./icons/WeatherIcon";
 import { DailyForecast } from "@/types/weather";
 
-
 const WeatherListItem:React.FC<DailyForecast> = ({ 
   temperatureMax, 
   temperatureMin, 

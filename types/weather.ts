@@ -20,10 +20,7 @@ export interface WeatherIcons {
 
 export interface WeatherCurrent {
   temperature: number;
-  humidity: number;
-  precipitation: number;
   weatherCode: number;
-  windSpeed: number;
   formattedDate: string;
   weatherDescription: string;
 }
