@@ -12,12 +12,12 @@ import {
 import { useWeather } from "@/context/WeatherContext";
 import { router } from "expo-router";
 import LocationLink from "./LocationLink";
-
+import { Location } from "@/types/weather";
 export function DrawerContent(props: DrawerContentComponentProps) {
   const { locations, selectedLocation, setSelectedLocation, myLocation } =
     useWeather();
 
-  const handleLocationPress = (location: (typeof locations)[0]) => {
+  const handleLocationPress = (location: Location) => {
     setSelectedLocation(location);
     router.push("/");
   };
