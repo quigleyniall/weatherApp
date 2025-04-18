@@ -10,24 +10,25 @@ interface Props {
 const WeatherDetailContainer:React.FC<Props> = ({ weatherData }) => {
   const list = [
     {
-      icon: "tint",
-      iconColor: "#fff",
-      text: `${weatherData.current.relative_humidity_2m}%`,
-      size: 40,
-      subText: "Humidity",
-    },
-    {
       icon: "wind",
       iconColor: "#fff",
       text: `${Math.round(weatherData.current.wind_speed_10m)} km/h`,
-      size: 40,
+      size: 30,
       subText: "Wind",
     },
+    {
+      icon: "tint",
+      iconColor: "#fff",
+      text: `${weatherData.current.relative_humidity_2m}%`,
+      size: 30,
+      subText: "Humidity",
+    },
+    
     {
       icon: "water",
       iconColor: "#fff",
       text: `${weatherData.current.precipitation} mm`,
-      size: 40,
+      size: 30,
       subText: "Precipitation",
     },
   ];
@@ -49,10 +50,9 @@ export default WeatherDetailContainer;
 const styles = StyleSheet.create({
   detailsContainer: {
     flexDirection: "row",
-    flexWrap: "wrap",
     justifyContent: "space-between",
     paddingVertical: 20,
-    marginHorizontal: 20,
+    marginHorizontal: 30,
     borderTopWidth: 2,
     borderTopColor: '#5EA0EB',
   },

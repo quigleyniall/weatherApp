@@ -1,14 +1,26 @@
+import { Link } from "expo-router";
 import { ScrollView, View, Text, StyleSheet } from "react-native";
-
+import { FontAwesome5 } from '@expo/vector-icons';
 interface Props {
   title?: string;
   children: React.ReactNode;
+  link?: boolean;
 }
 
-const HorizontalList: React.FC<Props> = ({ title, children }) => {
+const HorizontalList: React.FC<Props> = ({ title, children, link = true }) => {
   return (
     <View style={styles.container}>
-      {title && <Text style={styles.title}>{title}</Text>}
+      <View style={styles.titleContainer}>
+        {title && <Text style={styles.title}>{title}</Text>}
+        {link && (
+          <Link href={"/sevenDaysWeather"}>
+            <View style={styles.link}>
+              <Text style={styles.linkText}>7 Days</Text>
+              <FontAwesome5 name="arrow-right" size={16} color="#999" />
+              </View>
+          </Link>
+        )}
+      </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {children}
       </ScrollView>
@@ -21,6 +33,11 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
   },
+  titleContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
@@ -28,4 +45,16 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontFamily: "Inter-Regular",
   },
+  link: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  linkText: {
+    fontSize: 16,
+    marginRight: 5,
+    color: "#999",
+    fontFamily: "Inter-Regular",
+  },
+  
 });

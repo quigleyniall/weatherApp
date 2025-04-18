@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 5,
-    fontSize: 20,
+    marginBottom: 0,
+    fontSize: 16,
     color: "#fff",
     fontFamily: "Inter-Regular",
   },
   subText: {
-    marginTop: 5,
     fontSize: 14,
     color: "#ccc",
     fontFamily: "Inter-Regular",

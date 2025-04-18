@@ -6,7 +6,7 @@ import * as ExpoLocation from "expo-location";
 interface WeatherContextType {
   weatherData: WeatherData | null;
   selectedLocation: Location;
-  myLocation: Location;
+  myLocation: Location | null;
   locations: Location[];
   loading: boolean;
   error: string | null;
