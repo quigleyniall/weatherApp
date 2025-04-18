@@ -1,13 +1,14 @@
 import { WeatherIcons } from "@/types/weather";
 import { View, StyleSheet } from "react-native";
-import WeatherDetails from "./WeatherDetails";
+import WeatherDetails from "@/components/WeatherDetails";
 
 const WeatherDetailsContainer: React.FC<{ icons: WeatherIcons[] }> = ({
   icons,
 }) => (
   <View style={styles.detailsContainer}>
-    {icons.map(({ icon, text, subText }) => (
+    {icons.map(({ icon, text, subText }, index) => (
       <WeatherDetails
+        key={index}
         icon={icon}
         iconColor="#fff"
         text={text}

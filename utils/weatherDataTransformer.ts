@@ -52,7 +52,7 @@ export const transformWeatherData = (
       icons: [
         {
           icon: "wind",
-          text: `Up to ${Math.round(data.current.wind_speed_10m)} km/h`,
+          text: `${Math.round(data.current.wind_speed_10m)}km/h`,
           subText: "Wind",
         },
         {
