@@ -52,7 +52,7 @@ export default function RootLayout() {
                 backgroundColor: "rgb(13, 149, 212)",
               },
               headerTitleStyle: {
-                fontFamily: 'Inter-SemiBold',
+                fontFamily: 'Inter-Regular',
               },
             }}
           >
@@ -60,7 +60,7 @@ export default function RootLayout() {
               name="index"
               options={{
                 drawerLabel: "Home",
-                title: "",
+                title: ''
               }}
             />
           </Drawer>

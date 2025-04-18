@@ -16,7 +16,7 @@ import Loading from "@/components/loading/Loading";
 import ErrorLoading from "@/components/loading/ErrorLoading";
 
 export default function HomeScreen() {
-  const { weatherData, selectedLocation, loading, error, refreshWeather } =
+  const { weatherData, selectedLocation, myLocation, loading, error, refreshWeather } =
     useWeather();
 
   if (loading && !weatherData) {
@@ -47,6 +47,7 @@ export default function HomeScreen() {
             <WeatherSummary
               weatherData={weatherData}
               selectedLocation={selectedLocation}
+              myLocation={myLocation}
             />
 
             <WeatherDetailContainer weatherData={weatherData} />

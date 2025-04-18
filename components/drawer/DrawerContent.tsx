@@ -2,7 +2,6 @@ import React from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
   StyleSheet,
   ScrollView,
 } from "react-native";
@@ -12,9 +11,11 @@ import {
 } from "@react-navigation/drawer";
 import { useWeather } from "@/context/WeatherContext";
 import { router } from "expo-router";
+import LocationLink from "./LocationLink";
 
 export function DrawerContent(props: DrawerContentComponentProps) {
-  const { locations, selectedLocation, setSelectedLocation } = useWeather();
+  const { locations, selectedLocation, setSelectedLocation, myLocation } =
+    useWeather();
 
   const handleLocationPress = (location: (typeof locations)[0]) => {
     setSelectedLocation(location);
@@ -26,26 +27,21 @@ export function DrawerContent(props: DrawerContentComponentProps) {
       <View style={styles.container}>
         <Text style={[styles.headerText]}>Locations</Text>
         <ScrollView style={styles.locationsList}>
+          {myLocation && (
+            <LocationLink
+              currentLocation={true}
+              location={myLocation}
+              selectedLocation={selectedLocation}
+              handleLocationPress={handleLocationPress}
+            />
+          )}
           {locations.map((location) => (
-            <TouchableOpacity
+            <LocationLink
               key={location.name}
-              style={[
-                styles.locationItem,
-                selectedLocation.name === location.name &&
-                  styles.selectedLocation,
-              ]}
-              onPress={() => handleLocationPress(location)}
-            >
-              <Text
-                style={[
-                  styles.locationText,
-                  selectedLocation.name === location.name &&
-                    styles.selectedLocationText,
-                ]}
-              >
-                {location.name}
-              </Text>
-            </TouchableOpacity>
+              location={location}
+              selectedLocation={selectedLocation}
+              handleLocationPress={handleLocationPress}
+            />
           ))}
         </ScrollView>
       </View>
@@ -61,24 +57,9 @@ const styles = StyleSheet.create({
   locationsList: {
     marginTop: 10,
   },
-  locationItem: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    marginVertical: 2,
-  },
   headerText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "white",
-  },
-  selectedLocation: {
-    backgroundColor: "#1168F1",
-  },
-  locationText: {
-    fontSize: 16,
-    color: "white",
-  },
-  selectedLocationText: {
     color: "white",
   },
 });

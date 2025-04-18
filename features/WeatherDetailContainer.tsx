@@ -49,9 +49,10 @@ export default WeatherDetailContainer;
 const styles = StyleSheet.create({
   detailsContainer: {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-between",
     paddingVertical: 20,
-    marginHorizontal: 40,
+    marginHorizontal: 20,
     borderTopWidth: 2,
     borderTopColor: '#5EA0EB',
   },

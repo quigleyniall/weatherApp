@@ -6,6 +6,7 @@ import * as ExpoLocation from "expo-location";
 interface WeatherContextType {
   weatherData: WeatherData | null;
   selectedLocation: Location;
+  myLocation: Location;
   locations: Location[];
   loading: boolean;
   error: string | null;
@@ -22,6 +23,7 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({
   const [selectedLocation, setSelectedLocation] = useState<Location>(
     LOCATIONS[0]
   );
+  const [myLocation, setMyLocation] = useState<Location | null>(null);
   const [locations, setLocations] = useState<Location[]>(LOCATIONS);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -71,7 +73,7 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({
       const currentLocation = await getCurrentLocation();
       if (currentLocation) {
         setSelectedLocation(currentLocation);
-        setLocations([currentLocation, ...locations]);
+        setMyLocation(currentLocation);
         await fetchWeatherData(currentLocation);
       } else {
         await fetchWeatherData(selectedLocation);
@@ -90,6 +92,7 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         weatherData,
         selectedLocation,
+        myLocation,
         locations,
         loading,
         error,
