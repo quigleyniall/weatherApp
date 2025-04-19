@@ -1,3 +1,7 @@
+# Weather App
+
+This weather application is inspired by the beautiful design from [Dribbble](https://cdn.dribbble.com/userupload/31731512/file/original-9918a089c6157c6bc8213f82f7d01698.png?resize=1504x1128&vertical=center).
+
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).

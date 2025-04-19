@@ -84,7 +84,7 @@ export const transformWeatherData = (
         {
           icon: "water",
           text: `${data.daily.precipitation_probability_mean[1]}% Chance`,
-          subText: "Precipitation",
+          subText: "Rain",
         },
       ],
     },

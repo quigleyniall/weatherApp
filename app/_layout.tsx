@@ -1,4 +1,6 @@
-import { DefaultTheme, ThemeProvider, DrawerActions } from "@react-navigation/native";
+import {
+  DrawerActions,
+} from "@react-navigation/native";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -7,7 +9,13 @@ import { WeatherProvider, useWeather } from "@/context/WeatherContext";
 import { DrawerContent } from "@/components/drawer/DrawerContent";
 import { useCallback } from "react";
 import { useFonts } from "expo-font";
-import { Text, View, StyleSheet, Pressable, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { router, useNavigation } from "expo-router";
 import "react-native-reanimated";
@@ -58,7 +66,6 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={DefaultTheme}>
       <WeatherProvider>
         <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
           <Drawer
@@ -85,7 +92,9 @@ export default function RootLayout() {
                 headerTitle: () => <HeaderTitle />,
                 headerLeft: () => (
                   <TouchableOpacity
-                    onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+                    onPress={() =>
+                      navigation.dispatch(DrawerActions.openDrawer())
+                    }
                     style={{ marginLeft: 15 }}
                   >
                     <Ionicons name="menu-outline" size={28} color="#fff" />
@@ -111,7 +120,6 @@ export default function RootLayout() {
           <StatusBar style="auto" />
         </GestureHandlerRootView>
       </WeatherProvider>
-    </ThemeProvider>
   );
 }
 

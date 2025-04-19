@@ -3,38 +3,30 @@ import {
   StyleSheet,
   View,
   ScrollView,
-  RefreshControl,
-  Image,
+  RefreshControl
 } from "react-native";
 import { useWeather } from "@/context/WeatherContext";
 import HourlyForcast from "@/features/today/HourlyForecast";
 import WeatherSummary from "@/features/today/WeatherSummary";
 import { LinearGradient } from "expo-linear-gradient";
-
 import Loading from "@/components/loading/Loading";
 import ErrorLoading from "@/components/loading/ErrorLoading";
 import WeatherDetailsContainer from "@/features/WeatherDetailsContainer";
 
 export default function TodaysWeather() {
-  const {
-    weatherData,
-    loading,
-    error,
-    refreshWeather,
-  } = useWeather();
+  const { weatherData, loading, error, refreshWeather } = useWeather();
 
   if (loading && !weatherData) {
-    return <Loading />;
+    return <Loading testID="loading-indicator" />;
   }
 
   if (error) {
     return <ErrorLoading error={error} refreshWeather={refreshWeather} />;
   }
 
-
-
   return (
     <ScrollView
+      testID="scroll-view"
       style={styles.container}
       refreshControl={
         <RefreshControl refreshing={loading} onRefresh={refreshWeather} />
@@ -50,15 +42,11 @@ export default function TodaysWeather() {
             ]}
             style={styles.headerContainer}
           >
-            <WeatherSummary
-              {...weatherData.current.summary}
-            />
+            <WeatherSummary {...weatherData.current.summary} />
             <WeatherDetailsContainer icons={weatherData.current.icons} />
           </LinearGradient>
           <View style={styles.weatherContainer}>
-            <HourlyForcast
-              forecasts={weatherData.hourly.forecasts}
-            />
+            <HourlyForcast forecasts={weatherData.hourly.forecasts} />
           </View>
         </View>
       )}
@@ -82,13 +70,13 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   imageContainer: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#010C1B',
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#010C1B",
   },
   weatherImage: {
-    width: '100%',
+    width: "100%",
     height: 200,
     marginVertical: 10,
   },

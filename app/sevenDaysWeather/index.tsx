@@ -17,7 +17,7 @@ export default function SevenDaysWeather() {
   const { weatherData, loading, error, refreshWeather } = useWeather();
 
   if (loading && !weatherData) {
-    return <Loading />;
+    return <Loading testID="loading-indicator" />;
   }
 
   if (error) {
@@ -26,6 +26,7 @@ export default function SevenDaysWeather() {
 
   return (
     <ScrollView
+      testID="scroll-view"
       style={styles.container}
       refreshControl={
         <RefreshControl refreshing={loading} onRefresh={refreshWeather} />
