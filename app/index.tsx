@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   StyleSheet,
   View,
   ScrollView,
   RefreshControl,
-  Text
+  Image,
 } from "react-native";
 import { useWeather } from "@/context/WeatherContext";
 import HourlyForcast from "@/features/today/HourlyForecast";
@@ -13,34 +13,15 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import Loading from "@/components/loading/Loading";
 import ErrorLoading from "@/components/loading/ErrorLoading";
-import { useNavigation } from "expo-router";
-import { FontAwesome5 } from "@expo/vector-icons";
 import WeatherDetailsContainer from "@/features/WeatherDetailsContainer";
 
 export default function TodaysWeather() {
   const {
     weatherData,
-    selectedLocation,
-    myLocation,
     loading,
     error,
     refreshWeather,
   } = useWeather();
-  const navigation = useNavigation();
-  
-  useEffect(() => {
-    navigation.setOptions({
-      headerTitle: () => (
-        <View style={styles.titleContainer}>
-          {selectedLocation.name === myLocation?.name && (
-            <FontAwesome5 name="map-marker-alt" size={24} color="white" />
-          )}
-          <Text style={styles.locationName}>{selectedLocation?.name}</Text>
-        </View>
-      ),
-      headerTitleAlign: "center",
-    });
-  }, [navigation, selectedLocation, myLocation]);
 
   if (loading && !weatherData) {
     return <Loading />;
@@ -49,6 +30,8 @@ export default function TodaysWeather() {
   if (error) {
     return <ErrorLoading error={error} refreshWeather={refreshWeather} />;
   }
+
+
 
   return (
     <ScrollView
@@ -94,29 +77,19 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
   },
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "100%",
-    gap: 8,
-  },
-  locationName: {
-    fontSize: 24,
-    fontWeight: "500",
-    color: "#fff",
-    fontFamily: "Inter-Regular",
-  },
   weatherContainer: {
     alignItems: "center",
     padding: 20,
   },
-  detailsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingVertical: 20,
-    marginHorizontal: 30,
-    borderTopWidth: 2,
-    borderTopColor: '#5EA0EB',
+  imageContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#010C1B',
+  },
+  weatherImage: {
+    width: '100%',
+    height: 200,
+    marginVertical: 10,
   },
 });

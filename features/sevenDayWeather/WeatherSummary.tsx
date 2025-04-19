@@ -10,7 +10,7 @@ const WeatherSummary: React.FC<WeatherTomorrow> = ({
   temperatureMin,
   weatherCode,
   weatherDescription,
-  title
+  title,
 }) => (
   <View style={styles.container}>
     <View style={styles.weatherIconContainer}>
@@ -18,9 +18,13 @@ const WeatherSummary: React.FC<WeatherTomorrow> = ({
     </View>
     <View style={styles.temperatureInfo}>
       <Text style={styles.title}>{title}</Text>
-      <View style={styles.temperatureContainer}>
-        <Text style={styles.temperatureMax}>{temperatureMax}°</Text>
-        <Text style={styles.temperatureMin}>/{temperatureMin}°</Text>
+      <View style={styles.temperatureWrapper}>
+        <Text style={styles.temperatureMax}>{temperatureMax}</Text>
+        <View style={styles.temperatureContainer}>
+          <Text style={styles.temperatureDivider}>/</Text>
+          <Text style={styles.temperatureMin}>{temperatureMin}</Text>
+          <Text style={styles.temperatureUnit}>°</Text>
+        </View>
       </View>
       <Text style={styles.desc}>{weatherDescription}</Text>
     </View>
@@ -57,22 +61,45 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontFamily: "Inter-Regular",
   },
+  temperatureWrapper: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    gap: 8
+  },
   temperatureContainer: {
     flexDirection: "row",
     alignItems: "flex-end",
-    justifyContent: "flex-start",
+    justifyContent: "center",
   },
   temperatureMax: {
     fontSize: 80,
     fontWeight: "bold",
     color: "white",
     fontFamily: "Inter-Regular",
+    marginBottom: -10,
+  },
+  temperatureDivider: {
+    fontSize: 48,
+    color: "#ccc",
+    fontWeight: "300",
+    fontFamily: "Inter-Regular",
+    alignSelf: "flex-start",
+    marginRight: 6
   },
   temperatureMin: {
     fontSize: 48,
     fontWeight: "bold",
     color: "#ccc",
     fontFamily: "Inter-Regular",
+  },
+  temperatureUnit: {
+    fontSize: 30,
+    color: "#ccc",
+    fontWeight: "300",
+    fontFamily: "Inter-Regular",
+    alignSelf: "flex-start",
+    marginTop: 10
   },
   desc: {
     fontSize: 18,

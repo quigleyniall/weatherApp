@@ -63,7 +63,7 @@ export const transformWeatherData = (
         {
           icon: "water",
           text: `${data.current.precipitation}mm`,
-          subText: "Precipitation",
+          subText: "Rain",
         },
       ],
     },

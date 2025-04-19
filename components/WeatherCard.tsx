@@ -14,8 +14,11 @@ const WeatherCard: React.FC<Props> = ({
 }) => {
   return (
     <View style={styles.item}>
-      <Text style={styles.temp}>{temperature}°</Text>
-      <WeatherIcon code={weatherCode} size={32} />
+      <View style={styles.tempContainer}>
+        <Text style={styles.temp}>{temperature}</Text>
+        <Text style={styles.tempUnit}>°</Text>
+      </View>
+      <WeatherIcon code={weatherCode} size={48} />
       <Text style={styles.time}>{formattedTime}</Text>
     </View>
   );
@@ -28,21 +31,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginRight: 15,
     backgroundColor: "transparent",
-    borderWidth: .1,
+    borderWidth: 0.1,
     borderColor: "#ccc",
     padding: 10,
     borderRadius: 32,
     width: 80,
   },
-
-  temp: {
+  tempContainer: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "center",
+    position: "relative",
+  },
+  tempUnit: {
     fontSize: 18,
+    color: "#fff",
+    marginBottom: 3,
+    fontFamily: "Inter-Regular",
+    position: "absolute",
+    top: 3,
+    right: -10,
+  },
+  temp: {
+    fontSize: 24,
     color: "#fff",
     marginBottom: 3,
     fontFamily: "Inter-Regular",
   },
   time: {
-    fontSize: 12,
+    fontSize: 16,
     color: "#ccc",
     marginTop: 5,
     fontFamily: "Inter-Regular",

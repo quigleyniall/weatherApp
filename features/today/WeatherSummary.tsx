@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from "react-native";
 import { WeatherIcon } from "@/components/icons/WeatherIcon";
 import { WeatherCurrent } from "@/types/weather";
 
-
 const WeatherSummary: React.FC<WeatherCurrent> = ({
   temperature,
   weatherCode,
@@ -13,11 +12,13 @@ const WeatherSummary: React.FC<WeatherCurrent> = ({
   return (
     <View style={styles.container}>
       <WeatherIcon code={weatherCode} size={200} />
-      <Text style={styles.temperature}>{temperature}°</Text>
+      <View style={styles.temperatureContainer}>
+        <Text style={styles.temperature}>{temperature}</Text>
+        <Text style={styles.temperatureUnit}>°</Text>
+      </View>
       <Text style={styles.desc}>{weatherDescription}</Text>
       <Text style={styles.date}>{formattedDate}</Text>
     </View>
-    
   );
 };
 
@@ -31,15 +32,34 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingVertical: 20,
   },
+  temperatureContainer: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "center",
+    position: "relative",
+  },
   temperature: {
-    fontSize: 88,
-    fontWeight: "bold",
+    fontSize: 120,
+    fontWeight: "700",
     color: "white",
     fontFamily: "Inter-Regular",
+    marginBottom: -20,
+    marginTop: -20,
+  },
+  temperatureUnit: {
+    fontSize: 40,
+    color: "white",
+    fontWeight: "300",
+    fontFamily: "Inter-Regular",
+    alignSelf: "flex-start",
+    position: "absolute",
+    top: 10,
+    right: -20,
   },
   desc: {
     fontSize: 32,
     color: "white",
+    fontWeight: "300",
     fontFamily: "Inter-Regular",
   },
   date: {

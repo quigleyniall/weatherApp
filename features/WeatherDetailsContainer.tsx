@@ -6,15 +6,8 @@ const WeatherDetailsContainer: React.FC<{ icons: WeatherIcons[] }> = ({
   icons,
 }) => (
   <View style={styles.detailsContainer}>
-    {icons.map(({ icon, text, subText }, index) => (
-      <WeatherDetails
-        key={index}
-        icon={icon}
-        iconColor="#fff"
-        text={text}
-        size={30}
-        subText={subText}
-      />
+    {icons.map((icon, index) => (
+      <WeatherDetails key={index} {...icon} iconColor="#fff" size={30} />
     ))}
   </View>
 );
