@@ -15,15 +15,19 @@ interface WeatherContextType {
   refreshWeather: () => Promise<void>;
 }
 
+const defaultLocation: Location = {
+  name: "",
+  latitude: 0,
+  longitude: 0,
+};
+
 const WeatherContext = createContext<WeatherContextType | undefined>(undefined);
 
 export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [weatherData, setWeatherData] = useState<FormattedWeatherData | null>(null);
-  const [selectedLocation, setSelectedLocation] = useState<Location>(
-    LOCATIONS[0]
-  );
+  const [selectedLocation, setSelectedLocation] = useState<Location>(defaultLocation);
   const [myLocation, setMyLocation] = useState<Location | null>(null);
   const [locations, setLocations] = useState<Location[]>(LOCATIONS);
   const [loading, setLoading] = useState(true);
@@ -77,7 +81,8 @@ export const WeatherProvider: React.FC<{ children: React.ReactNode }> = ({
         setMyLocation(currentLocation);
         await fetchWeatherData(currentLocation);
       } else {
-        await fetchWeatherData(selectedLocation);
+        setSelectedLocation(LOCATIONS[0]);
+        await fetchWeatherData(LOCATIONS[0]);
       }
     };
 
